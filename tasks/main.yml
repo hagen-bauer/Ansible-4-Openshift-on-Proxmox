@@ -1,0 +1,5 @@
+- name: Setup and start Server
+  include: cluster-proxmox-server-setup.yml
+
+
+

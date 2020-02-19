@@ -1,0 +1,64 @@
+---
+#### Definition for Proxmox VE Machines 
+
+api_user: 'root@pam'
+api_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          61323161323662643935356635613334643562663162653036353238336639353635656233323832
+          3134366466646631353534373034323262653166383138610a613936323932363263666638306465
+          34643066353230303333616264343633326561303266633036386232663062663636346534336361
+          6638346531636261360a313566356132623438333931353835376638656261333836306633666266
+          3237
+api_host: '172.20.12.23'
+defaults:
+  onboot: 'no'
+  ostype: 'l26'
+  sata: '{"sata0":"VG4OS:60,cache=writeback,discard=on"}'
+  vcpus: '2'
+  cores: '2'
+  memory: '16096'
+  swap: '0'
+  node: 'minotaur'
+  scsihw: 'virtio-scsi-pci'
+  net: '"net0"'
+  bridge: 'vmbr1'
+
+vmidprefix: 7
+
+nodes:
+  - name: "os-bs"
+    ipaddr: "172.20.12.180"
+    macaddr: "ba:a2:b5:d9:28:2b"
+    role: bootstrap
+    vmid: 180
+  - name: "os-cp-0"
+    ipaddr: "172.20.12.191"
+    macaddr: "c2:cd:5c:84:1a:ef"
+    role: master
+    vmid: 191
+  - name: "os-cp-1"
+    ipaddr: "172.20.12.192"
+    macaddr: "8a:5c:7d:74:21:b4" 
+    role: master
+    vmid: 192
+  - name: "os-cp-2"
+    ipaddr: "172.20.12.193"
+    macaddr: "96:62:3b:cd:d3:27" 
+    role: master
+    vmid: 193
+  - name: "os-w-1"
+    ipaddr: "172.20.12.201"
+    macaddr: "0e:e5:32:69:97:97" 
+    role: worker 
+    vmid: 201
+  - name: "os-w-2"
+    ipaddr: "172.20.12.202"
+    macaddr: "32:0a:33:3a:88:e4" 
+    role: worker 
+    vmid: 202
+  - name: "os-w-3"
+    ipaddr: "172.20.12.203"
+    macaddr: "42:06:55:54:4d:0d" 
+    role: worker 
+    vmid: 203
+
