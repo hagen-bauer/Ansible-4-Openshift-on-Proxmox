@@ -3,7 +3,6 @@
   hosts: proxmox 
   vars_files:
     - ../vars/main.yml
-  gather_facts: true 
   tasks:
   - name: 'Stop all VMS' 
     proxmox_kvm:
@@ -45,6 +44,8 @@
       net: '{ {{ defaults.net }}:"virtio={{ item.macaddr }},bridge={{ defaults.bridge }}"}'
       state: 'present'
     with_items: "{{ nodes }}"
+    loop_control:
+      pause: 10
     tags: create
   - name: 'start all vms' 
     proxmox_kvm:
