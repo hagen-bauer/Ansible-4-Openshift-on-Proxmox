@@ -23,7 +23,7 @@ oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patc
 oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"emptyDir":{}}}}'
 
 ```
-# Monitor Operator Setup and wait for admin password 
+Monitor Operator Setup and wait for admin password 
 
 ```
 watch -n5 oc get clusteroperators 
