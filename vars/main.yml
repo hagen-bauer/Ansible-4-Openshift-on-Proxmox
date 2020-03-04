@@ -62,3 +62,25 @@ nodes:
     role: worker 
     vmid: 203
 
+
+helper:
+  name: "helper"
+  ipaddr: "172.20.12.210"    # needed for pxe boot url
+
+disk: sda  # where shoud the pxe installer install the os
+
+dns:
+  domain: "hb-d.net"
+  clusterid: "os4"
+
+## Openshift specific stuff
+install_directory: "/root/os4_installer"
+force_ocp_download: false
+ocp_bios: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.0/rhcos-4.2.0-x86_64-metal-bios.raw.gz"
+ocp_initramfs: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.0/rhcos-4.2.0-x86_64-installer-initramfs.img"
+ocp_install_kernel: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.2/4.2.0/rhcos-4.2.0-x86_64-installer-kernel"
+ocp_client: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.2.16/openshift-client-linux-4.2.16.tar.gz"
+ocp_installer: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.2.16/openshift-install-linux-4.2.16.tar.gz"
+
+ssh_pub_key: "ssh-ed25519 AAAAC ........."
+pull_secret: '{"auths":{"cloud.openshift.com":{"auth":..........."}'

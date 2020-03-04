@@ -1,5 +1,6 @@
-- name: Setup and start Server
+- name: prepare helper node
+  include: cluster-helper-nodes-setup.yml
+- name: create installation configuration files
+  include: cluster-config.yml
+- name: setup and start server
   include: cluster-proxmox-server-setup.yml
-
-
-
