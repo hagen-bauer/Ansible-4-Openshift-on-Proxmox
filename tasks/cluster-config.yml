@@ -1,0 +1,33 @@
+---
+- hosts: helper
+  vars_files:
+    - ../vars/main.yml
+  handlers:
+  - import_tasks: ../handlers/main.yml
+  tasks:
+  - name: remove old installfiles
+    file:
+       path: '{{ install_directory }}'
+       state: absent
+  - name: create installation directory
+    file:
+      path: "{{ install_directory }}"
+      state: directory
+      mode: '0755'
+  - name: create install-config
+    template:
+      src: ../templates/install-config.yaml.j2
+      dest: "{{ install_directory }}/install-config.yaml"
+  - name: create manifest 
+    shell: openshift-install create manifests --dir={{ install_directory }}
+  - name: set masterschedule flase
+    replace:
+       path: '{{ install_directory}}/manifests/cluster-scheduler-02-config.yml'
+       regexp: 'mastersSchedulable: true'
+       replace: 'mastersSchedulable: False'
+  - name: create ignition config files 
+    shell: openshift-install create ignition-configs --dir={{ install_directory }}
+  - name: copy the ignition files in the ignition directory for the websever
+    copy: src={{ item }} dest='/var/www/html/ignition/'
+    with_fileglob:
+    - '{{ install_directory }}/*.ign'

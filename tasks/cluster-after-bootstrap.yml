@@ -1,0 +1,17 @@
+---
+- hosts: helper
+  vars_files:
+    - ../vars/main.yml
+  handlers:
+  - import_tasks: ../handlers/main.yml
+  tasks:
+  - name: remove bootstrap server from haproxy
+    lineinfile:
+      path: /etc/haproxy/haproxy.cfg
+      regexp: "{{ item.name }}"
+      state: absent
+    with_items: "{{ nodes }}"
+    when: 
+    - item.role == "bootstrap"
+    notify:
+    - restart haproxy
